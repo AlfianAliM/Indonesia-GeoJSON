@@ -69,12 +69,30 @@ Setiap file mengikuti standar GeoJSON dengan struktur:
 }
 ```
 
+## 🔗 Akses Langsung (Raw URL)
+
+Anda dapat mengakses file GeoJSON secara langsung melalui GitHub raw URL:
+
+**Kabupaten/Kota:**
+```
+https://raw.githubusercontent.com/AlfianAliM/Indonesia-GeoJSON/master/kab_kota.geojson
+```
+
+**Provinsi:**
+```
+https://raw.githubusercontent.com/AlfianAliM/Indonesia-GeoJSON/master/provinsi.geojson
+```
+
+URL ini dapat langsung digunakan dalam aplikasi web, API, atau tools GIS tanpa perlu download file terlebih dahulu.
+
 ## 💻 Cara Penggunaan
 
-### JavaScript
+### JavaScript (Fetch dari GitHub Raw)
 ```javascript
-// Menggunakan fetch API
-fetch('kab_kota.geojson')
+// Menggunakan fetch API langsung dari GitHub
+const url = 'https://raw.githubusercontent.com/AlfianAliM/Indonesia-GeoJSON/master/kab_kota.geojson';
+
+fetch(url)
   .then(response => response.json())
   .then(data => {
     console.log(`Total kabupaten/kota: ${data.features.length}`);
@@ -106,7 +124,9 @@ const map = L.map('map').setView([-2.5, 118], 5);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-fetch('kab_kota.geojson')
+const url = 'https://raw.githubusercontent.com/AlfianAliM/Indonesia-GeoJSON/master/kab_kota.geojson';
+
+fetch(url)
   .then(response => response.json())
   .then(data => {
     L.geoJSON(data, {
@@ -127,7 +147,7 @@ fetch('kab_kota.geojson')
 map.on('load', () => {
   map.addSource('indonesia', {
     type: 'geojson',
-    data: 'kab_kota.geojson'
+    data: 'https://raw.githubusercontent.com/AlfianAliM/Indonesia-GeoJSON/master/kab_kota.geojson'
   });
 
   map.addLayer({
